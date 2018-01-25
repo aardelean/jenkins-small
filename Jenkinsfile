@@ -1,12 +1,20 @@
 pipeline {
-    agent {docker:  'gradle:jdk9'}
-    tools {
-        maven 'apache-maven-3.0.1'
-    }
+    agent any
+
     stages {
-        stage('gradle-version') {
+        stage('Build') {
             steps {
-                sh 'gradle --version'
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
