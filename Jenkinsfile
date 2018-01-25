@@ -1,10 +1,14 @@
 pipeline {
-    agent any
+    agent {
+        docker{
+            image   'gradle:4.4.1-jdk9'
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo './gradlew build'
             }
         }
         stage('Test') {
