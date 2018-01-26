@@ -6,6 +6,13 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+RUN apt-get update && apt-get install -y libltdl7 && rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq update \
+   && apt-get -qq -y install \
+   curl
+
+RUN curl -sSL https://get.docker.com/ | sh
+
+RUN gpasswd -a jenkins docker
+
 USER jenkins
-COPY plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt

@@ -1,1 +1,16 @@
 Test jenkins
+
+
+For this, in order to make jenkins LTS work with docker a new image for jenkins was provided:
+
+Build image:
+docker build -t aardelean/jenkins-lts dockerfile-jenkins/
+
+Create container:
+docker run -p 8080:8080 --name jenkins -v /home/alex/config/jenkins_home/:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -it aardelean/jenkins-lts
+
+also to give jenkins docker rights, I changed the docker rights for everybody accessible:
+sudo chmod 777 /var/run/docker.sock
+
+Debug container:
+docker exec -it jenkins /bin/bash
