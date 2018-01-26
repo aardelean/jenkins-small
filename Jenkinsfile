@@ -13,13 +13,17 @@ pipeline {
             }
         }
         stage('Build image') {
-            app = docker.build("aardelean/jenkins-small")
+            steps {
+                app = docker.build("aardelean/jenkins-small")
+            }
         }
 
         stage('Push image') {
-            docker.withRegistry('https://registry.hub.docker.com', 'my user and pass') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
+            steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'jenkins-docker') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                    }
             }
         }
 
